@@ -1,4 +1,35 @@
-a:hover {
-	text-decoration: none;
-	color: pink;
+.view-posts {
+	margin: 0 -10px;
+	@extend %clearfix;
+	background-color: red;
+
+	> .views-row {
+		width: 100%;
+		float: left;
+		padding: 0 10px 20px 10px;
+		box-sizing: border-box;
+
+		@media screen and (min-width: 741px) {
+			width: 33.33%;
+		}
+	}
+}
+
+.article {
+	&.view-mode-teaser {
+		padding: 10px;
+		background: $secondary-color;
+	}
+}
+
+#sidebar {
+	@media screen and (max-width: 740px) {
+		float: none;
+	}
+}
+
+#main {
+	@media screen and (max-width: 740px) {
+		width: 100%;
+	}
 }
