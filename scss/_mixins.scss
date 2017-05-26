@@ -1,0 +1,165 @@
+// clear floats ( use this on an element that contains floated elements )
+@mixin clearfix {
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    clear: both;
+  }
+  & {
+    zoom: 1;
+  }
+}
+
+// add vendor prefixes
+@mixin css3($property, $value) {
+  @each $prefix in -webkit-, -moz-, -ms-, -o-, '' {
+    #{$prefix}#{$property}: $value;
+  }
+}
+
+// cross browser box sizing
+@mixin box-sizing($type) {
+  -webkit-box-sizing: $type;
+  -moz-box-sizing: $type;
+  box-sizing: $type;
+}
+
+// cross browser column count
+@mixin column-count($count) {
+  -webkit-column-count: $count;
+  -moz-column-count: $count;
+  column-count: $count;
+}
+
+// cross browser column gap
+@mixin column-gap($gap) {
+  -webkit-column-gap: $gap;
+  -moz-column-gap: $gap;
+  column-gap: $gap;
+}
+
+// inline-block hack for IE8
+@mixin inline-block {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+
+// cross browser border radius
+@mixin border-radius($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -o-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// cross browser box shadow
+@mixin box-shadow($h_offset, $v_offset, $blur, $spread, $color, $inset:"") {
+  -moz-box-shadow: unquote($inset) $h_offset $v_offset $blur $spread $color;
+  -webkit-box-shadow: unquote($inset) $h_offset $v_offset $blur $spread $color;
+  -o-box-shadow: unquote($inset) $h_offset $v_offset $blur $spread $color;
+  box-shadow: unquote($inset) $h_offset $v_offset $blur $spread $color;
+}
+
+// cross browser opacity
+@mixin opacity($opacity) {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$opacity*100)";
+  filter: alpha(opacity=$opacity*100);
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  opacity: $opacity;
+}
+
+// cross browser rgba background (fallback to solid color)
+// $color - ex. #ff0000 or #f00, or red
+// $alpha - ex. 0.5
+@mixin background-rgba($color, $alpha) {
+  background: $color;
+  background: rgba($color, $alpha);
+}
+
+// cross browser background gradient
+// $start-color - Start color
+// $end-color - End color
+// $orientation - 'vertical', 'horizontal' or 'radial'
+// @example
+// .element {
+//   @include background-gradient(#f00, #000, 'vertical');
+// }
+@mixin background-gradient($start-color, $end-color, $orientation) {
+  background: $start-color;
+  @if $orientation == 'vertical' {
+    background: -webkit-linear-gradient(top, $start-color, $end-color);
+    background: linear-gradient(to bottom, $start-color, $end-color);
+  } @else if $orientation == 'horizontal' {
+    background: -webkit-linear-gradient(left, $start-color, $end-color);
+    background: linear-gradient(to right, $start-color, $end-color);
+  } @else {
+    background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+    background: radial-gradient(ellipse at center, $start-color, $end-color);
+  }
+}
+
+// position absolute
+@mixin pos-abs($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  position: absolute;
+}
+
+// center x,y
+@mixin center-both($relation: absolute) {
+  position: $relation;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+// center vertically (even with unknown height)
+@mixin center-y($relation: absolute) {
+  position: $relation;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+// cross browser transition
+@mixin transition($transition) {
+  -moz-transition: $transition;
+  -webkit-transition: $transition;
+  -ms-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin transform($transform) {
+  -moz-transform: $transform;
+  -webkit-transform: $transform;
+  -ms-transform: $transform;
+  transform: $transform;
+}
+
+// rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+ 
+// scale
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
+// translate
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
